@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (require) {
+if (typeof require !== 'undefined') {
 require.paths.shift('.');
 var Key = require('./key.js').Key;
 }
@@ -125,7 +125,7 @@ ResManager.prototype.read = function(data) {
 
 gResMgr = new ResManager(); /* Global Resource Manager */
 
-if (exports) {
+if (typeof exports !== 'undefined') {
 exports.ResManager = ResManager;
 exports.gResMgr = gResMgr;
 }

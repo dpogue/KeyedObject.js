@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (require) {
+if (typeof require !== 'undefined') {
 require.paths.shift('.');
 var Key = require('./key.js').Key;
 var ResManager = require('./resmgr.js').ResManager
@@ -51,6 +51,6 @@ Person.prototype.set_name = function(name) {
 
 gResMgr.register_class(0, Person);
 
-if (exports) {
+if (typeof exports !== 'undefined') {
 exports.Person = Person;
 }

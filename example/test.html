@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <title>KeyedObject.js Demo</title>
+
+        <script src="../key.js"></script>
+        <script src="../resmgr.js"></script>
+        <script src="../keyedobject.js"></script>
+        <script src="./person.js"></script>
+    </head>
+    <body>
+        <p id="greeting">&nbsp;</p>
+
+        <script>
+var myobj = '{"key": {"type": 0, "index": 0}, "name": "John Doe"}';
+var obj = gResMgr.read(JSON.parse(myobj));
+
+document.getElementById('greeting').innerHTML = 'Hello, ' + obj.get_name();
+        </script>
+    </body>
+</html>

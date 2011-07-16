@@ -56,6 +56,6 @@ Key.prototype.equals = function(key) {
     return (this.type == key.type) && (this.index == key.index);
 }
 
-if (exports) {
+if (typeof exports !== 'undefined') {
 exports.Key = Key;
 }

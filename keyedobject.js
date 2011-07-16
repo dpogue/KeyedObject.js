@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (require) {
+if (typeof require !== 'undefined') {
 require.paths.shift('.');
 var Key = require('./key.js').Key;
 var ResManager = require('./resmgr.js').ResManager
@@ -72,6 +72,6 @@ KeyedObject.prototype.read = function(data) {
     this._key.read(newkey);
 }
 
-if (exports) {
+if (typeof exports !== 'undefined') {
 exports.KeyedObject = KeyedObject;
 }
