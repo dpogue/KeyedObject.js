@@ -22,10 +22,10 @@
 
 if (typeof require !== 'undefined') {
 require.paths.shift('.');
-var Key = require('./key.js').Key;
-var ResManager = require('./resmgr.js').ResManager
-var gResMgr = require('./resmgr.js').gResMgr;
-var KeyedObject = require('./keyedobject.js').KeyedObject;
+var Key = require('../key.js').Key;
+var ResManager = require('../resmgr.js').ResManager
+var gResMgr = require('../resmgr.js').gResMgr;
+var KeyedObject = require('../keyedobject.js').KeyedObject;
 }
 
 function Person() {
