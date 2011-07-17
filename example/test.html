@@ -4,19 +4,35 @@
         <meta charset="utf8">
         <title>KeyedObject.js Demo</title>
 
+        <script src="http://glmatrix.googlecode.com/hg/glMatrix-min.js"></script>
         <script src="../key.js"></script>
         <script src="../resmgr.js"></script>
         <script src="../keyedobject.js"></script>
-        <script src="./person.js"></script>
-    </head>
-    <body>
-        <p id="greeting">&nbsp;</p>
-
+        <script src="../shader.js"></script>
+        <script src="../mesh.js"></script>
+        <script src="../world.js"></script>
         <script>
-var myobj = '{"key": {"type": 0, "index": 0}, "name": "John Doe"}';
-var obj = gResMgr.read(JSON.parse(myobj));
+function start() {
+    var data = '[{"key":{"type":1,"index":0,"name":"Cube"},"position":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,-10,1]],"vertices":[{"position":[-1,-1,-1],"colour":[0,0,0,1]},{"position":[-1,-1,1],"colour":[0,0,1,1]},{"position":[-1,1,-1],"colour":[0,1,0,1]},{"position":[-1,1,1],"colour":[0,1,1,1]},{"position":[1,-1,-1],"colour":[1,0,0,1]},{"position":[1,-1,1],"colour":[1,0,1,1]},{"position":[1,1,-1],"colour":[1,1,0,1]},{"position":[1,1,1],"colour":[1,1,1,1]}],"indices":[[0,6,4],[0,2,6],[0,3,2],[0,1,3],[2,7,6],[2,3,7],[4,6,7],[4,7,5],[0,4,5],[0,5,1],[1,5,7],[1,7,3]]},{"key":{"type":2,"index":0,"name":"FragmentShader"},"type":"fragment","source":"varying lowp vec4 vColor;\\nvoid main(void) {\\n  gl_FragColor = vColor;\\n}\\n"},{"key":{"type":2,"index":1,"name":"VertexShader"},"type":"vertex","source":"attribute vec3 aVertexPosition;\\nattribute vec4 aVertexColor;\\nuniform mat4 uMVMatrix;\\nuniform mat4 uPMatrix;\\nvarying lowp vec4 vColor;\\nvoid main(void) {\\n  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);\\n  vColor = aVertexColor;\\n}\\n"},{"key":{"type":0,"index":0,"name":"WebGL Demo"},"shaders":[{"type":2,"index":0},{"type":2,"index":1}],"objects":[{"type":1,"index":0}]}]';
 
-document.getElementById('greeting').innerHTML = 'Hello, ' + obj.get_name();
+    var objects = JSON.parse(data);
+    for (var o in objects) {
+        gResMgr.read(objects[o]);
+    }
+
+    var worldkey = new Key();
+    worldkey.read({'type': 0, 'index': 0});
+    scene = gResMgr.find(worldkey);
+
+    if (!scene.init(document.getElementById('webgl'))) {
+        return;
+    }
+
+    setInterval(function() { scene.render(); }, 15);
+}
         </script>
+    </head>
+    <body onload="start()">
+        <canvas id="webgl" height="600" width="800"></canvas>
     </body>
 </html>
