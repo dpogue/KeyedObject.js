@@ -28,17 +28,19 @@
  * @variable name The object name (optional).
  */
 function Key() {
+    "use strict";
     this.type = null;
     this.index = null;
     this.name = null;
 }
 
 Key.prototype.read = function(obj) {
-    if ('type' in obj && 'index' in obj) {
+    "use strict";
+    if (typeof obj.type !== 'undefined' && typeof obj.index !== 'undefined') {
         this.type = obj.type;
         this.index = obj.index;
 
-        if ('name' in obj) {
+        if (obj.name) {
             this.name = obj.name;
         } else {
             this.name = null;
@@ -46,15 +48,16 @@ Key.prototype.read = function(obj) {
     } else {
         console.warn('Tried to read an invalid key!');
     }
-}
+};
 
 Key.prototype.equals = function(key) {
+    "use strict";
     if (!(key instanceof Key)) {
         return false;
     }
 
-    return (this.type == key.type) && (this.index == key.index);
-}
+    return (this.type === key.type) && (this.index === key.index);
+};
 
 if (typeof exports !== 'undefined') {
 exports.Key = Key;

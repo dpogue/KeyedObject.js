@@ -32,6 +32,7 @@ function Person() {
     this.name = null;
 }
 Person.inherits(KeyedObject);
+Person.prototype.ClsIdx = 0;
 
 Person.prototype.read = function(data) {
     this.parent.read.call(this, data);
@@ -49,7 +50,7 @@ Person.prototype.set_name = function(name) {
     this.name = name;
 }
 
-gResMgr.register_class(0, Person);
+gResMgr.register_class(Person);
 
 if (typeof exports !== 'undefined') {
 exports.Person = Person;

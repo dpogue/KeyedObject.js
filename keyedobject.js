@@ -23,14 +23,13 @@
 if (typeof require !== 'undefined') {
 require.paths.shift('.');
 var Key = require('./key.js').Key;
-var ResManager = require('./resmgr.js').ResManager
-var gResMgr = require('./resmgr.js').gResMgr;
 }
 
 /* A slight hack to allow us to more-easily inherit from KeyedObjects */
 Function.prototype.inherits = function(klass) {
-    if (klass.constructor == Function) {
-        this.prototype = new klass;
+    "use strict";
+    if (klass.constructor === Function) {
+        this.prototype = new klass();
         this.prototype.constructor = this;
         this.prototype.parent = klass.prototype;
     } else {
@@ -39,15 +38,17 @@ Function.prototype.inherits = function(klass) {
         this.prototype.parent = klass;
     }
     return this;
-}
+};
 
 
-KeyedObject = function() {
+function KeyedObject() {
+    "use strict";
     this._key = null;
     this._loaded = false;
 }
 
 KeyedObject.prototype.key = function(newkey) {
+    "use strict";
     if (!newkey) {
         return this._key;
     }
@@ -56,10 +57,11 @@ KeyedObject.prototype.key = function(newkey) {
         this._key = new Key();
     }
     this._key.read(newkey);
-}
+};
 
 KeyedObject.prototype.read = function(data) {
-    if (!('key' in data)) {
+    "use strict";
+    if (!data.key) {
         throw 'Tried to read an object without a key!';
     }
 
@@ -70,7 +72,7 @@ KeyedObject.prototype.read = function(data) {
         throw 'Tried to change the key of an object!';
     }
     this._key.read(newkey);
-}
+};
 
 if (typeof exports !== 'undefined') {
 exports.KeyedObject = KeyedObject;
